@@ -15,11 +15,7 @@ pipeline {
                 echo "Files in directory:"
                 dir
                 set PATH=C:\\MinGW\\bin;%PATH%
-                g++ -o program main.cpp 2> errors.log
-                if %ERRORLEVEL% NEQ 0 (
-                    echo "Compilation failed. Check errors.log"
-                    exit 1
-                )
+                g++ -o main.exe main.cpp
                 '''
                 echo "Build Completed"
             }
@@ -27,11 +23,11 @@ pipeline {
         stage('Run Program') {
             steps {
                 bat '''
-                if exist program.exe (
-                    program.exe
+                if exist main.exe (
+                    .\\main.exe
                 ) else (
-                    echo "Build failed. program.exe not found!"
-                    exit 1
+                    echo "Build failed. main.exe not found!"
+                    exit /b 1
                 )
                 '''
                 echo "Program ran successfully"
