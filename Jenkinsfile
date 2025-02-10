@@ -1,10 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Clone Repository') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/shubham-2410/CppAutomationJob.git'
-                echo "Repository Cloned"
+                checkout scm
             }
         }
         stage('Build') {
